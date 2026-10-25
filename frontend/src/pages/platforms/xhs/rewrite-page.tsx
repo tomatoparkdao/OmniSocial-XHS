@@ -163,7 +163,7 @@ function SortableRewriteImage({ asset, onEdit, onRemove, onView }: { asset: Draf
         style={{
           position: "absolute", top: -6, left: -6, fontSize: 10,
           width: 18, height: 18, minWidth: 18, padding: 0,
-          background: "rgba(0,0,0,.6)", borderRadius: "50%", color: "#1668dc",
+          background: "rgba(0,0,0,.6)", borderRadius: "50%", color: "#cbf90c",
         }}
       />
       <Popconfirm title="移除此图片？" onConfirm={onRemove}>
@@ -625,7 +625,7 @@ export function XhsDraftsPage() {
             title={
               <Space>
                 <Text strong>草稿队列</Text>
-                <Badge count={drafts.length} style={{ backgroundColor: "#1668dc" }} />
+                <Badge count={drafts.length} style={{ backgroundColor: "#cbf90c" }} />
               </Space>
             }
             styles={{ body: { padding: 0 } }}
@@ -660,8 +660,8 @@ export function XhsDraftsPage() {
                       style={{
                         cursor: "pointer",
                         padding: "10px 16px",
-                        background: isActive ? "#1668dc10" : "transparent",
-                        borderLeft: isActive ? "2px solid #1668dc" : "2px solid transparent",
+                        background: isActive ? "#cbf90c10" : "transparent",
+                        borderLeft: isActive ? "2px solid #cbf90c" : "2px solid transparent",
                         transition: "all 0.15s",
                         margin: 0,
                       }}
@@ -768,7 +768,7 @@ export function XhsDraftsPage() {
                       </Button>
                       <Button type="text" size="small" icon={<EditOutlined />}
                         onClick={() => { setOptimizeAssetId(asset.id); setOptimizeModalOpen(true); }}
-                        style={{ color: "#1668dc" }}
+                        style={{ color: "#cbf90c" }}
                       />
                     </div>
                   ))}
@@ -816,7 +816,7 @@ export function XhsDraftsPage() {
                       key={tag.id || tag.name}
                       closable
                       onClose={() => setDraftTags((prev) => prev.filter((t) => t.name !== tag.name))}
-                      color="blue"
+                      color="lime"
                     >
                       #{tag.name}
                     </Tag>
@@ -913,7 +913,7 @@ export function XhsDraftsPage() {
             </div>
 
             {rewritePreview !== null && (
-              <Card size="small" title="改写结果" style={{ marginBottom: 16, background: "#1a2332", borderColor: "#1668dc40" }}>
+              <Card size="small" title="改写结果" style={{ marginBottom: 16, background: "#1a2332", borderColor: "#cbf90c40" }}>
                 <Paragraph style={{ whiteSpace: "pre-wrap", color: "rgba(255,255,255,.75)", fontSize: 13, maxHeight: 240, overflow: "auto" }}>{rewritePreview}</Paragraph>
                 <Space style={{ marginTop: 8 }}>
                   <Button type="primary" size="small" onClick={applyRewrite}>采用</Button>
@@ -946,7 +946,7 @@ export function XhsDraftsPage() {
                         padding: "4px 8px",
                         borderRadius: 4,
                         background: "rgba(22, 104, 220, 0.08)",
-                        border: "1px solid #1668dc30",
+                        border: "1px solid #cbf90c30",
                         fontSize: 12,
                         overflow: "hidden",
                         textOverflow: "ellipsis",
@@ -970,7 +970,7 @@ export function XhsDraftsPage() {
                   {tagOptions.map((tag) => (
                     <Tag
                       key={tag}
-                      color="geekblue"
+                      color="lime"
                       onClick={() => {
                         if (!draftTags.some((t) => t.name === tag)) {
                           setDraftTags((prev) => [...prev, { id: "", name: tag }]);
@@ -1032,7 +1032,7 @@ export function XhsDraftsPage() {
                         />
                       ) : (
                         <div style={{ height: 180, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                          <Space direction="vertical" align="center"><PlayCircleOutlined style={{ fontSize: 32, color: "#1668dc" }} /><Text style={{ fontSize: 12 }}>视频</Text></Space>
+                          <Space direction="vertical" align="center"><PlayCircleOutlined style={{ fontSize: 32, color: "#cbf90c" }} /><Text style={{ fontSize: 12 }}>视频</Text></Space>
                         </div>
                       )}
                     </div>
@@ -1252,7 +1252,7 @@ export function XhsDraftsPage() {
                     <div key={img.file_name} onClick={() => toggleAssetUrl(img.url)}
                       style={{
                         width: 60, height: 60, borderRadius: 4, overflow: "hidden", cursor: "pointer",
-                        border: selectedAssetUrls.includes(img.url) ? "2px solid #1668dc" : "2px solid transparent",
+                        border: selectedAssetUrls.includes(img.url) ? "2px solid #cbf90c" : "2px solid transparent",
                       }}>
                       <img src={img.url} style={{ width: "100%", height: "100%", objectFit: "cover" }} referrerPolicy="no-referrer" />
                     </div>
@@ -1271,7 +1271,7 @@ export function XhsDraftsPage() {
                     <div key={asset.id} onClick={() => toggleAssetUrl(asset.file_path)}
                       style={{
                         width: 60, height: 60, borderRadius: 4, overflow: "hidden", cursor: "pointer",
-                        border: selectedAssetUrls.includes(asset.file_path) ? "2px solid #1668dc" : "2px solid transparent",
+                        border: selectedAssetUrls.includes(asset.file_path) ? "2px solid #cbf90c" : "2px solid transparent",
                       }}>
                       <img src={asset.file_path} style={{ width: "100%", height: "100%", objectFit: "cover" }} referrerPolicy="no-referrer" />
                     </div>
