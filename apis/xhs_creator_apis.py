@@ -574,28 +574,25 @@ class XHS_Creator_Apis:
         # 浏览器实抓（2026-07-25 reqid=5609）：post_note 的 referer 是站点根路径
         # "https://creator.xiaohongshu.com/"，不是发布页完整 URL（fetch 封装层
         # 默认行为）；permit 请求才带发布页 URL。
-        headers, cookies, body = self._request_params(
-            post_api,
-            data,
-            'POST',
-            referer=f'{self.base_url}/',
-            target_origin=self.edith_url,
-            order_wire_headers=False,
-        )
-        # x-rap-param：信封算法与 PC 相同（rap.js 已字节级验证），但 Creator
-        # 发布接口的指纹模板不同（436B，含键盘遥测/特征位；从浏览器 post_note
-        # 信封 AES 解密获得）。PC homefeed 的 219B 模板会被服务端以
-        # 参数错误(result=-9059) 打回；Creator 模板 + 每次随机 Uuid。
-        headers['x-rap-param'] = generate_x_rap_param(
-            post_api,
-            body,
-            fingerprint_hex=load_creator_rap_fingerprint_hex(),
-        )
-        # 发布接口同样存在按请求的概率性边缘拒绝（code=-1）：同会话重发可过
-        # （14:38 拒、14:40 同 Cookie 过，实证），做有限次重试；业务性错误
-        # （如 -9059 参数错误）不重试。
+        # 发布接口存在按请求的概率性边缘拒绝（code=-1）。每次重试都必须
+        # 重新生成签名信封和随机指纹；复用上一轮 headers/body 会让边缘层
+        # 持续拒绝。视频链路给更充足的机会，图文保持原有重试次数。
         res_json = None
-        for attempt in range(3):
+        max_attempts = 8 if media_type == 'video' else 3
+        for attempt in range(max_attempts):
+            headers, cookies, body = self._request_params(
+                post_api,
+                data,
+                'POST',
+                referer=f'{self.base_url}/',
+                target_origin=self.edith_url,
+                order_wire_headers=False,
+            )
+            headers['x-rap-param'] = generate_x_rap_param(
+                post_api,
+                body,
+                fingerprint_hex=load_creator_rap_fingerprint_hex(),
+            )
             response = self.http.post(
                 self.edith_url + post_api,
                 headers=headers,
@@ -609,11 +606,13 @@ class XHS_Creator_Apis:
                 break
             if res_json.get("code") != -1:
                 break
-            logger.warning(f'发布被边缘拒绝（code=-1），重发 ({attempt + 1}/3)')
+            logger.warning(f'发布被边缘拒绝（code=-1），重发 ({attempt + 1}/{max_attempts})')
+            if attempt + 1 < max_attempts:
+                time.sleep(0.5)
         # 成功响应为 {"result":0,"success":true,"msg":"",...}，部分响应缺 msg 字段
         success = bool(res_json.get("success"))
         msg = res_json.get("msg") or res_json.get("message") or (
-            "成功" if success else "发布失败"
+            "成功" if success else f"发布失败（code={res_json.get('code', 'unknown')}）"
         )
         return success, msg, res_json
 
@@ -819,16 +818,3 @@ class XHS_Creator_Apis:
                 page = int(next_page)
             except (TypeError, ValueError):
                 return False, f'作品列表分页游标无效: {next_page!r}', notes
-            if page == -1:
-                break
-        return True, '成功', notes
-
-    def get_all_publish_note_info(self, proxies=None):
-        """兼容旧方法名；等价于 :meth:`get_all_posted_notes`."""
-        return self.get_all_posted_notes(proxies=proxies)
-
-
-XHSCreatorApis = XHS_Creator_Apis
-
-
-__all__ = ['XHS_Creator_Apis', 'XHSCreatorApis']
