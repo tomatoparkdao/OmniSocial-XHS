@@ -1,3 +1,5 @@
+# © OmniSocial XHS ｜ 开发者：Mochiball
+
 from __future__ import annotations
 
 from contextlib import asynccontextmanager
@@ -92,3 +94,5 @@ def create_app() -> FastAPI:
 
 
 app = create_app()
+
+# © OmniSocial XHS ｜ 开发者：Mochiball
