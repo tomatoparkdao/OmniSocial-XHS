@@ -104,7 +104,7 @@ const topContentColumns: ColumnsType<AnalyticsTopContent> = [
   },
 ];
 
-const metricIconColors = ["#cbf90c", "#52c41a", "#faad14", "#eb2f96"];
+const metricIconColors = ["#1668dc", "#52c41a", "#faad14", "#eb2f96"];
 
 export function XhsAnalyticsPage() {
   const [overview, setOverview] = useState<DashboardOverview>(fallbackOverview);
