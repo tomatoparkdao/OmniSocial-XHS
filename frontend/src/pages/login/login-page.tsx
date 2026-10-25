@@ -142,10 +142,10 @@ export function LoginPage() {
                   display: "block",
                 }}
               >
-                OmniSocial XHS
+                小红书自动运营平台
               </Text>
               <Text strong style={{ fontSize: 14 }}>
-                Operations OS
+                OmniSocial XHS
               </Text>
             </div>
           </Space>
