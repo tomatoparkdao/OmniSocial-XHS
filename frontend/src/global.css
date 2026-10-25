@@ -39,13 +39,13 @@ body {
 }
 
 .ant-card:hover {
-  border-color: #1668dc40;
+  border-color: #cbf90c40;
 }
 
 .ant-card-hoverable:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(22, 104, 220, 0.12);
-  border-color: #1668dc60;
+  border-color: #cbf90c60;
 }
 
 .ant-table-tbody > tr {
@@ -93,7 +93,7 @@ body {
 }
 
 .ant-spin-dot-item {
-  background: #1668dc;
+  background: #cbf90c;
 }
 
 .ant-image-preview-img {
