@@ -16,6 +16,7 @@
 | 许可 | MIT，详见 [LICENSE](LICENSE) |
 | 开源仓库 | https://github.com/tomatoparkdao/OmniSocial-XHS |
 | 演示页面 | [OmniSocial-XHS](https://tomatoparkdao.github.io/OmniSocial-XHS/) |
+| 开源社区 | [Discord 开源社区](https://discord.gg/vdgTEpXMh3) |
 
 ## 一句话
 
@@ -140,6 +141,10 @@ npm run build --prefix frontend
 ## 使用边界
 
 请遵守小红书及相关服务的用户协议、隐私政策和适用法律法规。使用账号、Cookie、内容与接口时，应确保拥有相应授权，并自行承担运营风险。
+
+## 开源社区
+
+加入 [Discord 开源社区](https://discord.gg/vdgTEpXMh3)，可进行使用交流、问题反馈和协作讨论。
 
 ## 许可证与署名
 
