@@ -115,23 +115,11 @@ export function LoginPage() {
         {/* Left side: marketing copy */}
         <Col xs={24} md={12}>
           <Space align="center" size={12} style={{ marginBottom: 32 }}>
-            <div
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: 10,
-                background:
-                  "linear-gradient(135deg, #1668dc 0%, #4e8ff7 100%)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontWeight: 800,
-                fontSize: 18,
-                color: "#fff",
-              }}
-            >
-              X
-            </div>
+            <img
+              src="/omniailab-icon.svg"
+              alt="OmniSocial logo"
+              style={{ width: 40, height: 40, borderRadius: 10, objectFit: "cover" }}
+            />
             <div>
               <Text
                 type="secondary"
