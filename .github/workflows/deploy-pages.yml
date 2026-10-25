@@ -30,6 +30,8 @@ jobs:
         run: npm ci --prefix frontend
       - name: Build demo
         run: npm run build --prefix frontend -- --mode github-pages
+      - name: Add SPA fallback for direct routes
+        run: cp frontend/dist/index.html frontend/dist/404.html
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
