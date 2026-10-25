@@ -76,7 +76,9 @@ async function bootstrap(): Promise<void> {
 async function login(credentials: api.AuthCredentials): Promise<void> {
   emit({ ...snapshot, error: null });
   try {
-    const payload = await api.login(credentials);
+    const payload = api.isDemoCredentials(credentials)
+      ? api.loginDemo()
+      : await api.login(credentials);
     emit({ status: "authenticated", user: payload.user, error: null });
   } catch (error) {
     const message = authErrorMessage(error, "账号不存在或密码错误，请检查后重试。");
