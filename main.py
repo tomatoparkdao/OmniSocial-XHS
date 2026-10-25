@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import os
 import shutil
 import subprocess
 import sys
@@ -30,6 +31,24 @@ def resolve_npm_executable() -> str:
     return npm
 
 
+def ensure_node_runtime() -> Optional[str]:
+    """Make a bundled/local Node runtime available to backend JS adapters."""
+    node = shutil.which("node")
+    if node:
+        return node
+
+    candidates = [
+        Path.home() / ".cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        Path.home() / ".nvm/versions/node/current/bin/node",
+    ]
+    for candidate in candidates:
+        if candidate.exists():
+            node_dir = str(candidate.parent)
+            os.environ["PATH"] = node_dir + os.pathsep + os.environ.get("PATH", "")
+            return str(candidate)
+    return None
+
+
 def build_frontend_command(port: int, npm_executable: Optional[str] = None) -> list[str]:
     npm = npm_executable or resolve_npm_executable()
     return [npm, "run", "dev", "--", "--host", "127.0.0.1", "--port", str(port)]
@@ -49,6 +68,7 @@ def start_frontend(port: int) -> Optional[subprocess.Popen]:
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
     args = parse_args(argv)
+    ensure_node_runtime()
 
     # Resolve host/port: CLI args take precedence, then YAML/env config defaults
     host = args.host
