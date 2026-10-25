@@ -334,7 +334,7 @@ export function AutoOpsPage() {
                   </Text>
                   <Space size={4} wrap>
                     {(task.keywords || []).map((kw) => (
-                      <Tag key={kw} color="blue">
+                      <Tag key={kw} color="lime">
                         {kw}
                       </Tag>
                     ))}
