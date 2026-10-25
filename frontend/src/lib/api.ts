@@ -898,3 +898,57 @@ export async function sendXhsPhoneCode(payload: {
 export async function confirmXhsPhoneLogin(payload: {
   sub_type: "pc" | "creator";
   session_id: number;
+  phone: string;
+  code: string;
+  sync_creator?: boolean;
+}): Promise<XhsQrLoginSession> {
+  const response = await http.post<XhsQrLoginSession>(`/xhs/login-sessions/${payload.sub_type}/phone/confirm`, {
+    session_id: payload.session_id,
+    phone: payload.phone,
+    code: payload.code,
+    sync_creator: payload.sync_creator
+  });
+  return response.data;
+}
+
+export async function fetchNotifications(params?: { unread?: boolean; page?: number; page_size?: number }): Promise<Paginated<AppNotification>> {
+  const response = await http.get<Paginated<AppNotification>>("/notifications", { params });
+  return response.data;
+}
+
+export async function markNotificationRead(id: number): Promise<AppNotification> {
+  const response = await http.post<AppNotification>(`/notifications/${id}/read`);
+  return response.data;
+}
+
+export async function markAllNotificationsRead(): Promise<{ marked: number }> {
+  const response = await http.post<{ marked: number }>("/notifications/read-all");
+  return response.data;
+}
+
+// Auto Tasks (Auto Operations)
+
+export async function fetchAutoTasks(): Promise<Paginated<AutoTask>> {
+  const response = await http.get<Paginated<AutoTask>>("/auto-tasks");
+  return response.data;
+}
+
+export async function createAutoTask(payload: AutoTaskCreatePayload): Promise<AutoTask> {
+  const response = await http.post<AutoTask>("/auto-tasks", payload);
+  return response.data;
+}
+
+export async function updateAutoTask(taskId: number, payload: AutoTaskUpdatePayload): Promise<AutoTask> {
+  const response = await http.patch<AutoTask>(`/auto-tasks/${taskId}`, payload);
+  return response.data;
+}
+
+export async function deleteAutoTask(taskId: number): Promise<{ id: number; status: string }> {
+  const response = await http.delete<{ id: number; status: string }>(`/auto-tasks/${taskId}`);
+  return response.data;
+}
+
+export async function runAutoTask(taskId: number): Promise<AutoTaskRunResult> {
+  const response = await http.post<AutoTaskRunResult>(`/auto-tasks/${taskId}/run`);
+  return response.data;
+}
