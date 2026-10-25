@@ -1,11 +1,3 @@
-<p align="center">
-  <a href="#" target="_blank">
-    <picture>
-      <img width="220" src="./frontend/public/logo.jpg" alt="OmniSocial XHS logo">
-    </picture>
-  </a>
-</p>
-
 <div align="center">
 
 # OmniSocial XHS
@@ -49,43 +41,29 @@
 
 支持绑定多个 PC / Creator 账号，扫码登录、手机验证码、Cookie 导入三种方式。Cookie 加密存储，2 小时自动健康巡检，过期自动通知。
 
-<img src="./static/frontend_1.jpg" width="600" />
-
 ### 笔记发现 — 关键词搜索与详情预览
 
 输入关键词一键搜索小红书全站笔记，支持排序、类型、时间等多维筛选。点击笔记卡片打开详情抽屉，查看无水印原图、互动数据、评论区，一键保存到内容库。
-
-<img src="./static/frontend_2.jpg" width="600" />
 
 ### 内容库 — 采集内容的统一管理
 
 所有采集到的笔记统一沉淀在内容库，属于平台用户而非某个 XHS 账号。卡片/列表双视图，支持自定义标签、关键词搜索、批量操作、JSON/CSV 导出。
 
-<img src="./static/frontend_3.jpg" width="600" />
-
 ### 草稿工坊 — AI 改写与内容编辑
 
 三栏布局：草稿队列 + 编辑器 + AI 助手。从内容库深拷贝笔记进入草稿，AI 一键改写正文、润色标题、生成标签，拖拽排序图片素材，编辑完成直接送入发布中心。
-
-<img src="./static/frontend_4.jpg" width="600" />
 
 ### 素材优化 — AI 图片润色
 
 选择草稿中的任意图片，添加参考图，输入润色指令，AI 生成优化后的图片并原位替换。当前素材和优化结果并排对比，点击即可放大预览。
 
-<img src="./static/frontend_5.jpg" width="600" />
-
 ### 发布中心 — 一键发布到小红书
 
 预览草稿内容和图片素材，选择 Creator 账号，设置可见性和发布模式（立即/定时），发布校验通过后一键发布到小红书创作者平台。
 
-<img src="./static/frontend_6.jpg" width="600" />
-
 ### 自动运营 — 全自动内容生产管线
 
 设置关键词和调度频率（每日/每周/自定义间隔），系统自动执行完整管线：搜索热门笔记 → AI 改写标题+正文 → 上传图片素材 → 通过 Creator API 自动发布。真正的无人值守。
-
-<img src="./static/frontend_7.jpg" width="600" />
 
 ---
 
