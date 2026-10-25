@@ -25,20 +25,17 @@
 
 它不是单一的爬虫，也不是单一的发布器——**第一步是把账号、素材、内容和运营目标放进同一条工作流**：先搜索与采集，再进入内容库沉淀；随后通过 AI 完成标题、正文和标签改写，按需优化图片，最后经过发布校验进入立即发布、定时发布或自动运营任务。每一阶段都保留可追踪的任务状态与结果。
 
-<table width="100%" style="width:100%; min-width:100%; table-layout:auto;">
-<thead><tr><th align="left">项目</th><th align="left">值</th><th align="left">说明</th></tr></thead>
-<tbody>
-<tr><td>产品名称</td><td>OmniSocial XHS 小红书自动运营平台</td><td>面向小红书运营的内容与账号工作台</td></tr>
-<tr><td>核心能力</td><td>采集、内容库、AI 创作、图片优化、发布、自动运营</td><td>从素材发现到数据复盘的完整链路</td></tr>
-<tr><td>技术栈</td><td>Python / FastAPI / React / TypeScript</td><td>支持本地开发与 Docker 部署</td></tr>
-<tr><td>版本</td><td>v0.1.0</td><td>前后端统一的初始版本</td></tr>
-<tr><td>运行方式</td><td>本地服务 / Docker / GitHub Pages 演示</td><td>Pages 仅展示前端，不承载后端业务</td></tr>
-<tr><td>许可</td><td>MIT（见 <a href="LICENSE">LICENSE</a>）</td><td>第三方依赖按各自许可证执行</td></tr>
-<tr><td>仓库</td><td><a href="https://github.com/tomatoparkdao/OmniSocial-XHS">tomatoparkdao/OmniSocial-XHS</a></td><td>项目源码与部署配置</td></tr>
-<tr><td>演示页面</td><td><a href="https://tomatoparkdao.github.io/OmniSocial-XHS/">OmniSocial-XHS</a></td><td>静态前端演示</td></tr>
-<tr><td>开源社区</td><td><a href="https://discord.gg/vdgTEpXMh3">Discord 开源社区</a></td><td>使用交流、问题反馈与协作讨论</td></tr>
-</tbody>
-</table>
+| 项目 | 值 | 说明 |
+|---|---|---|
+| 产品名称 | OmniSocial XHS 小红书自动运营平台 | 面向小红书运营的内容与账号工作台 |
+| 核心能力 | 采集、内容库、AI 创作、图片优化、发布、自动运营 | 从素材发现到数据复盘的完整链路 |
+| 技术栈 | Python / FastAPI / React / TypeScript | 支持本地开发与 Docker 部署 |
+| 版本 | v0.1.0 | 前后端统一的初始版本 |
+| 运行方式 | 本地服务 / Docker / GitHub Pages 演示 | Pages 仅展示前端，不承载后端业务 |
+| 许可 | MIT（见 [LICENSE](LICENSE)） | 第三方依赖按各自许可证执行 |
+| 仓库 | [tomatoparkdao/OmniSocial-XHS](https://github.com/tomatoparkdao/OmniSocial-XHS) | 项目源码与部署配置 |
+| 演示页面 | [OmniSocial-XHS](https://tomatoparkdao.github.io/OmniSocial-XHS/) | 静态前端演示 |
+| 开源社区 | [Discord 开源社区](https://discord.gg/vdgTEpXMh3) | 使用交流、问题反馈与协作讨论 |
 
 ## 项目定位
 
@@ -54,20 +51,17 @@
 
 ## 能力一览
 
-<table width="100%" style="width:100%; min-width:100%; table-layout:auto;">
-<thead><tr><th align="left">层面</th><th align="left">具体能力</th></tr></thead>
-<tbody>
-<tr><td>账号与登录</td><td>PC 端 / 创作者平台登录，多账号绑定，Cookie 加密，健康巡检</td></tr>
-<tr><td>内容采集</td><td>关键词搜索、笔记详情、用户内容、评论、批量 URL 抓取</td></tr>
-<tr><td>内容资产</td><td>内容库、标签、卡片 / 列表视图、JSON / CSV 导出、媒体本地化</td></tr>
-<tr><td>AI 创作</td><td>标题、正文、标签改写；支持 OpenAI 兼容 API</td></tr>
-<tr><td>图片工坊</td><td>AI 图片生成、参考图、图片描述与原位替换</td></tr>
-<tr><td>发布管理</td><td>图集 / 视频发布、可见性控制、立即 / 定时发布</td></tr>
-<tr><td>自动运营</td><td>每日、每周或自定义间隔的任务调度与执行审计</td></tr>
-<tr><td>数据分析</td><td>仪表盘、互动趋势、Top 内容、话题与评论分析</td></tr>
-<tr><td>平台适配</td><td>小红书 PC、创作者、蒲公英、千帆相关能力</td></tr>
-</tbody>
-</table>
+| 层面 | 具体能力 |
+|---|---|
+| 账号与登录 | PC 端 / 创作者平台登录，多账号绑定，Cookie 加密，健康巡检 |
+| 内容采集 | 关键词搜索、笔记详情、用户内容、评论、批量 URL 抓取 |
+| 内容资产 | 内容库、标签、卡片 / 列表视图、JSON / CSV 导出、媒体本地化 |
+| AI 创作 | 标题、正文、标签改写；支持 OpenAI 兼容 API |
+| 图片工坊 | AI 图片生成、参考图、图片描述与原位替换 |
+| 发布管理 | 图集 / 视频发布、可见性控制、立即 / 定时发布 |
+| 自动运营 | 每日、每周或自定义间隔的任务调度与执行审计 |
+| 数据分析 | 仪表盘、互动趋势、Top 内容、话题与评论分析 |
+| 平台适配 | 小红书 PC、创作者、蒲公英、千帆相关能力 |
 
 ## 快速开始
 
