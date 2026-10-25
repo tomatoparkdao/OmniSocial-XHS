@@ -181,7 +181,7 @@ export function AppShell() {
           <div style={{ flexShrink: 0, borderTop: "1px solid #303030" }}>
             <Menu theme="dark" mode="inline" selectedKeys={selectedKeys} onClick={handleMenuClick} items={footerNavItems} style={{ borderRight: 0 }} />
             <div style={{ padding: collapsed ? "8px 0" : "8px 16px", borderTop: "1px solid #262626", display: "flex", alignItems: "center", gap: 8, justifyContent: collapsed ? "center" : "flex-start" }}>
-              <Avatar size={22} icon={<UserOutlined />} style={{ background: "#1668dc", flexShrink: 0, fontSize: 11 }}>{(auth.user?.username ?? "U")[0].toUpperCase()}</Avatar>
+              <Avatar size={22} icon={<UserOutlined />} style={{ background: "#cbf90c", flexShrink: 0, fontSize: 11 }}>{(auth.user?.username ?? "U")[0].toUpperCase()}</Avatar>
               {!collapsed && (
                 <>
                   <Text type="secondary" ellipsis style={{ fontSize: 12, flex: 1, lineHeight: "22px" }}>{auth.user?.username ?? "用户"}</Text>
@@ -208,7 +208,7 @@ export function AppShell() {
                 <Button type="text" icon={<BellOutlined style={{ fontSize: 16 }} />} style={{ display: "flex", alignItems: "center", justifyContent: "center" }} />
               </Badge>
             </Dropdown>
-            <Avatar size={28} style={{ background: "#1668dc", fontSize: 12, cursor: "default" }}>{(auth.user?.username ?? "U")[0].toUpperCase()}</Avatar>
+            <Avatar size={28} style={{ background: "#cbf90c", fontSize: 12, cursor: "default" }}>{(auth.user?.username ?? "U")[0].toUpperCase()}</Avatar>
           </Space>
         </Header>
         <Content style={{ padding: 24, minHeight: "calc(100vh - 48px)", overflow: "auto" }}>
