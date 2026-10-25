@@ -102,10 +102,27 @@ python main.py --with-frontend
 
 GitHub Pages 演示和本地前端均支持使用以下独立演示账号直接进入工作台：
 
-| 项目 | 值 | 说明 |
-|---|---|---|
-| 演示账号 | `demo` | GitHub Pages 与本地前端通用的演示登录账号 |
-| 演示密码 | `Xhs2026` | 用于进入演示工作台，不影响真实账号登录 |
+<table width="100%">
+  <thead>
+    <tr>
+      <th align="left">项目</th>
+      <th align="left">值</th>
+      <th align="left">说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>演示账号</td>
+      <td><code>demo</code></td>
+      <td>GitHub Pages 与本地前端通用的演示登录账号，可直接进入演示工作台。</td>
+    </tr>
+    <tr>
+      <td>演示密码</td>
+      <td><code>Xhs2026</code></td>
+      <td>用于查看演示数据和前端流程，不影响真实账号登录、注册与账号数据。</td>
+    </tr>
+  </tbody>
+</table>
 
 演示账号仅用于查看前端工作台，不影响原有注册、登录和真实账号数据。
 
