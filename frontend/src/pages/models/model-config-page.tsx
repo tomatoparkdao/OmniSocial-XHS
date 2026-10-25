@@ -424,7 +424,7 @@ export function ModelConfigPage() {
                             {config.is_default && (
                               <Tag
                                 icon={<StarOutlined />}
-                                color="blue"
+                                color="lime"
                               >
                                 默认
                               </Tag>
