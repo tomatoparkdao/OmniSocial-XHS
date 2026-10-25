@@ -1,3 +1,4 @@
+# © OmniSocial XHS ｜ 开发者：Mochiball
 # OmniSocial XHS Configuration
 # ========================
 # This is the default configuration file.
@@ -58,3 +59,5 @@ frontend:
   serve_static: false
   # Path to the built frontend assets
   build_dir: "./frontend/dist"
+
+# © OmniSocial XHS ｜ 开发者：Mochiball
