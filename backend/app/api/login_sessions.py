@@ -219,7 +219,35 @@ def login_session(
     session = db.get(LoginSession, session_id)
     if session is None or session.user_id != current_user.id:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Login session not found")
-    if session.status in {"confirmed", "expired"}:
+    if session.status == "confirmed":
+        # A confirmed QR session must always be reflected in the account
+        # matrix.  Recover the account if a previous response was interrupted
+        # after the remote login succeeded but before the local transaction
+        # committed (this is especially important after a browser refresh).
+        account_payload = None
+        try:
+            cookies, _ = _load_temp_state(decrypt_text(session.encrypted_temp_cookies))
+            adapter = creator_adapter if session.sub_type == "creator" else pc_adapter
+            user_info = adapter.get_user_info(cookies)
+            account, action = _create_account_from_login(
+                db=db,
+                user_id=current_user.id,
+                sub_type=session.sub_type or "pc",
+                user_info=user_info,
+                cookies=cookies,
+            )
+            db.commit()
+            account_payload = serialize_account(account, action)
+        except Exception:
+            db.rollback()
+        return {
+            "session_id": session.id,
+            "status": session.status,
+            "qr_url": session.qr_url,
+            "account": account_payload,
+            "creator_account": None,
+        }
+    if session.status == "expired":
         return {"session_id": session.id, "status": session.status, "qr_url": session.qr_url}
     if session.sub_type not in {"pc", "creator"} or not session.qr_id:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Unsupported login session")
@@ -330,67 +358,3 @@ def creator_phone_send_code(
     )
     db.add(session)
     db.commit()
-    db.refresh(session)
-    return {"session_id": session.id, "status": session.status, "message": result.get("message", "sent")}
-
-
-@router.post("/creator/phone/confirm")
-def creator_phone_confirm(
-    payload: PhoneConfirmRequest,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db),
-    adapter: XhsCreatorLoginAdapter = Depends(get_creator_login_adapter),
-):
-    return _confirm_phone_login(payload, current_user, db, adapter, "creator", None)
-
-
-def _confirm_phone_login(
-    payload: PhoneConfirmRequest,
-    current_user: User,
-    db: Session,
-    adapter,
-    sub_type: str,
-    creator_adapter: XhsCreatorLoginAdapter | None,
-):
-    session = db.get(LoginSession, payload.session_id)
-    if (
-        session is None
-        or session.user_id != current_user.id
-        or session.sub_type != sub_type
-        or session.login_method != "phone"
-    ):
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Login session not found")
-    try:
-        cookies, stored_sync_creator = _load_temp_state(decrypt_text(session.encrypted_temp_cookies))
-        result = adapter.confirm_phone_login(payload.phone, payload.code, cookies)
-        user_info = adapter.get_user_info(result["cookies"])
-    except Exception as exc:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Phone login failed") from exc
-
-    sync_creator = payload.sync_creator if payload.sync_creator is not None else stored_sync_creator
-    session.status = "confirmed"
-    session.encrypted_temp_cookies = encrypt_text(
-        _dump_temp_state(result["cookies"], sync_creator=sync_creator)
-    )
-    account, action = _create_account_from_login(
-        db=db,
-        user_id=current_user.id,
-        sub_type=sub_type,
-        user_info=user_info,
-        cookies=result["cookies"],
-    )
-    creator_account_payload = None
-    if sub_type == "pc" and creator_adapter is not None and sync_creator:
-        creator_account_payload = _sync_creator_account_from_pc_login(
-            db=db,
-            user_id=current_user.id,
-            pc_cookies=result["cookies"],
-            creator_adapter=creator_adapter,
-        )
-    db.commit()
-    return {
-        "session_id": session.id,
-        "status": session.status,
-        "account": serialize_account(account, action),
-        "creator_account": creator_account_payload,
-    }
