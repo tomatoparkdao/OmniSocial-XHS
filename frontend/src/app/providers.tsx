@@ -15,7 +15,7 @@ export function useThemeMode() {
 }
 
 const darkTokens = {
-  colorPrimary: "#1668dc",
+  colorPrimary: "#cbf90c",
   colorBgBase: "#141414",
   colorBgContainer: "#1f1f1f",
   colorBgElevated: "#262626",
@@ -26,7 +26,7 @@ const darkTokens = {
 };
 
 const lightTokens = {
-  colorPrimary: "#1668dc",
+  colorPrimary: "#cbf90c",
   colorBgBase: "#ffffff",
   colorBgContainer: "#ffffff",
   colorBgElevated: "#ffffff",
@@ -38,7 +38,7 @@ const lightTokens = {
 
 const darkComponents = {
   Layout: { siderBg: "#141414", headerBg: "#141414", bodyBg: "#0a0a0a" },
-  Menu: { darkItemBg: "#141414", darkSubMenuItemBg: "#141414", darkItemSelectedBg: "#1668dc20", darkItemSelectedColor: "#1668dc" },
+  Menu: { darkItemBg: "#141414", darkSubMenuItemBg: "#141414", darkItemSelectedBg: "#cbf90c20", darkItemSelectedColor: "#cbf90c" },
   Card: { colorBgContainer: "#1a1a1a" },
   Table: { colorBgContainer: "#1a1a1a", headerBg: "#1f1f1f" },
 };
