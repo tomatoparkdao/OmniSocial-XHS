@@ -343,7 +343,7 @@ export function XhsPublishPage() {
                       cursor: "pointer",
                       padding: "12px 16px",
                       background: job.id === selectedJobId ? "rgba(22, 104, 220, 0.15)" : "transparent",
-                      borderLeft: job.id === selectedJobId ? "3px solid #1668dc" : "3px solid transparent",
+                      borderLeft: job.id === selectedJobId ? "3px solid #cbf90c" : "3px solid transparent",
                       transition: "all 0.2s",
                     }}
                   >
@@ -455,7 +455,7 @@ export function XhsPublishPage() {
                           <div style={{ marginTop: 12 }}>
                             <Space size={[4, 4]} wrap>
                               {(selectedJob.publish_options.draft_tags as Array<{name?: string}>).map((t, i) => (
-                                <Tag key={i} color="blue">#{t.name || ""}</Tag>
+                                <Tag key={i} color="lime">#{t.name || ""}</Tag>
                               ))}
                             </Space>
                           </div>
