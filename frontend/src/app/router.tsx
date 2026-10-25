@@ -25,8 +25,12 @@ import { XhsVideoStudioPage } from "../pages/platforms/xhs/video-studio-page";
 import { XhsSectionPage } from "../pages/platforms/xhs/xhs-section-page";
 
 export function AppRouter() {
+  const basename = window.location.pathname.startsWith("/OmniSocial-XHS")
+    ? "/OmniSocial-XHS"
+    : undefined;
+
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <Routes>
         <Route path="/" element={<Navigate to="/platform-select" replace />} />
         <Route
