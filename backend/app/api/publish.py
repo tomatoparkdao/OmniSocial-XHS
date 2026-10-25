@@ -495,19 +495,31 @@ def publish_job_to_creator(
     if not uploaded_images and not uploaded_videos:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="没有成功上传的素材")
 
+    # Creator's video endpoint needs the original video bytes plus a generated
+    # cover and metadata; the adapter handles that flow.  Image notes can use
+    # the already-uploaded file ids to avoid a second upload.
     if uploaded_videos:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="视频发布功能即将上线，目前仅支持图片发布")
-
-    image_file_infos = [_asset_creator_upload_info(asset) for asset in uploaded_images]
-
-    note_info = {
+        primary_video = uploaded_videos[0]
+        note_info = {
+            "title": job.title,
+            "desc": job.body,
+            "media_type": "video",
+            "video": primary_video.file_path,
+            "type": 1,
+            "postTime": _scheduled_post_time(job),
+        }
+        task_asset_ids = [asset.id for asset in uploaded_videos]
+    else:
+        image_file_infos = [_asset_creator_upload_info(asset) for asset in uploaded_images]
+        note_info = {
         "title": job.title,
         "desc": job.body,
         "media_type": "image",
         "image_file_infos": image_file_infos,
         "type": 1,
         "postTime": _scheduled_post_time(job),
-    }
+        }
+        task_asset_ids = [asset.id for asset in uploaded_images]
     _apply_publish_options(note_info, _load_publish_options(job))
 
     task = Task(
@@ -519,7 +531,7 @@ def publish_job_to_creator(
         payload={
             "publish_job_id": job.id,
             "platform_account_id": account.id,
-            "asset_ids": [asset.id for asset in uploaded_images],
+            "asset_ids": task_asset_ids,
             "publish_mode": job.publish_mode,
         },
     )
