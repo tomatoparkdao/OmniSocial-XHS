@@ -111,6 +111,10 @@ export function isDemoCredentials(credentials: AuthCredentials): boolean {
   return credentials.username.trim() === DEMO_USERNAME && credentials.password === DEMO_PASSWORD;
 }
 
+export function isDemoSession(): boolean {
+  return getRefreshToken() === DEMO_REFRESH_TOKEN || accessToken === DEMO_ACCESS_TOKEN;
+}
+
 export function loginDemo(): AuthPayload {
   return persistAuthPayload({
     access_token: DEMO_ACCESS_TOKEN,
@@ -149,7 +153,7 @@ http.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config as typeof error.config & { _authRetry?: boolean; _silent?: boolean };
     if (error.response?.status !== 401 || originalRequest?._authRetry || !getRefreshToken()) {
-      if (!originalRequest?._silent) {
+      if (!originalRequest?._silent && !isDemoSession()) {
         const detail = error.response?.data?.detail;
         const msg = typeof detail === "string" ? detail : "请求失败，请稍后重试";
         message.error(msg);
@@ -164,7 +168,9 @@ http.interceptors.response.use(
       return http(originalRequest);
     } catch (refreshError) {
       clearAuthTokens();
-      message.error("登录已过期，请重新登录");
+      if (!isDemoSession()) {
+        message.error("登录已过期，请重新登录");
+      }
       return Promise.reject(refreshError);
     }
   }
