@@ -245,29 +245,6 @@ scheduler:
 
 ## 🧸 额外说明
 
-1. 感谢 Star ⭐ 和 Follow，项目会持续更新
-2. 欢迎通过你自己的项目渠道提交 Issue 和 PR
-
-<div align="center">
-  <!-- Project-specific payment QR codes intentionally omitted. -->
-</div>
-
----
-
-## Project status
-
-
-OmniSocial XHS is maintained as a private, independently configured deployment.
-
----
-
-
-## Community
-
-请使用你自己的项目渠道维护社区信息。
-
----
-
 ## License
 
 MIT License - see [LICENSE](LICENSE) for details.
