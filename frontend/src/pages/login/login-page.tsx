@@ -116,7 +116,7 @@ export function LoginPage() {
         <Col xs={24} md={12}>
           <Space align="center" size={12} style={{ marginBottom: 32 }}>
             <img
-              src="/omniailab-icon.svg"
+              src={`${window.location.pathname.startsWith("/OmniSocial-XHS") ? "/OmniSocial-XHS/" : "/"}omniailab-icon.svg`}
               alt="OmniSocial logo"
               style={{ width: 40, height: 40, borderRadius: 10, objectFit: "cover" }}
             />
