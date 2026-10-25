@@ -88,6 +88,32 @@ export const DEMO_PASSWORD = "Xhs2026";
 const DEMO_ACCESS_TOKEN = "omni-social-xhs-demo-access";
 const DEMO_REFRESH_TOKEN = "omni-social-xhs-demo-refresh";
 const DEMO_USER: PlatformUser = { id: 0, username: DEMO_USERNAME };
+const DEMO_ACCOUNTS: PlatformAccount[] = [
+  {
+    id: 9001,
+    platform: "xhs",
+    sub_type: "pc",
+    external_user_id: "demo_pc_account",
+    nickname: "演示 PC 账号",
+    status: "healthy",
+    status_message: "演示数据：账号状态正常",
+    profile: { followers: "12.8K", following: "186", likes: "46.2K" },
+    created_at: "2026-01-01T00:00:00Z",
+    updated_at: "2026-01-01T00:00:00Z",
+  },
+  {
+    id: 9002,
+    platform: "xhs",
+    sub_type: "creator",
+    external_user_id: "demo_creator_account",
+    nickname: "演示 Creator 账号",
+    status: "healthy",
+    status_message: "演示数据：可用于查看发布流程",
+    profile: { red_id: "omnisocial_demo" },
+    created_at: "2026-01-01T00:00:00Z",
+    updated_at: "2026-01-01T00:00:00Z",
+  },
+];
 let accessToken: string | null = null;
 
 export type AuthCredentials = {
@@ -289,6 +315,9 @@ export async function createXhsAnalyticsReport(
 }
 
 export async function fetchAccounts(platform = "xhs"): Promise<PlatformAccount[]> {
+  if (isDemoSession()) {
+    return DEMO_ACCOUNTS.filter((account) => account.platform === platform).map((account) => ({ ...account, profile: { ...account.profile } }));
+  }
   const response = await http.get<Paginated<PlatformAccount>>("/accounts", { params: { platform } });
   return response.data.items;
 }
@@ -819,11 +848,20 @@ export async function importXhsCookieAccount(payload: {
 }
 
 export async function checkAccount(accountId: number): Promise<PlatformAccount> {
+  if (isDemoSession()) {
+    const account = DEMO_ACCOUNTS.find((item) => item.id === accountId);
+    if (account) {
+      return { ...account, status: "healthy", status_message: "演示数据：账号状态正常" };
+    }
+  }
   const response = await http.post<PlatformAccount>(`/accounts/${accountId}/check`);
   return response.data;
 }
 
 export async function deleteAccount(accountId: number): Promise<{ id: number; status: string }> {
+  if (isDemoSession()) {
+    return { id: accountId, status: "ok" };
+  }
   const response = await http.delete<{ id: number; status: string }>(`/accounts/${accountId}`);
   return response.data;
 }
@@ -860,57 +898,3 @@ export async function sendXhsPhoneCode(payload: {
 export async function confirmXhsPhoneLogin(payload: {
   sub_type: "pc" | "creator";
   session_id: number;
-  phone: string;
-  code: string;
-  sync_creator?: boolean;
-}): Promise<XhsQrLoginSession> {
-  const response = await http.post<XhsQrLoginSession>(`/xhs/login-sessions/${payload.sub_type}/phone/confirm`, {
-    session_id: payload.session_id,
-    phone: payload.phone,
-    code: payload.code,
-    sync_creator: payload.sync_creator
-  });
-  return response.data;
-}
-
-export async function fetchNotifications(params?: { unread?: boolean; page?: number; page_size?: number }): Promise<Paginated<AppNotification>> {
-  const response = await http.get<Paginated<AppNotification>>("/notifications", { params });
-  return response.data;
-}
-
-export async function markNotificationRead(id: number): Promise<AppNotification> {
-  const response = await http.post<AppNotification>(`/notifications/${id}/read`);
-  return response.data;
-}
-
-export async function markAllNotificationsRead(): Promise<{ marked: number }> {
-  const response = await http.post<{ marked: number }>("/notifications/read-all");
-  return response.data;
-}
-
-// Auto Tasks (Auto Operations)
-
-export async function fetchAutoTasks(): Promise<Paginated<AutoTask>> {
-  const response = await http.get<Paginated<AutoTask>>("/auto-tasks");
-  return response.data;
-}
-
-export async function createAutoTask(payload: AutoTaskCreatePayload): Promise<AutoTask> {
-  const response = await http.post<AutoTask>("/auto-tasks", payload);
-  return response.data;
-}
-
-export async function updateAutoTask(taskId: number, payload: AutoTaskUpdatePayload): Promise<AutoTask> {
-  const response = await http.patch<AutoTask>(`/auto-tasks/${taskId}`, payload);
-  return response.data;
-}
-
-export async function deleteAutoTask(taskId: number): Promise<{ id: number; status: string }> {
-  const response = await http.delete<{ id: number; status: string }>(`/auto-tasks/${taskId}`);
-  return response.data;
-}
-
-export async function runAutoTask(taskId: number): Promise<AutoTaskRunResult> {
-  const response = await http.post<AutoTaskRunResult>(`/auto-tasks/${taskId}/run`);
-  return response.data;
-}
