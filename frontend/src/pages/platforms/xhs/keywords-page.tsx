@@ -273,7 +273,7 @@ export function XhsKeywordsPage() {
                   title={
                     <Space>
                       <Text strong>{group.name}</Text>
-                      <Tag color="blue">xhs</Tag>
+                      <Tag color="lime">xhs</Tag>
                     </Space>
                   }
                   style={{ background: "#1f1f1f", borderColor: "#303030" }}
