@@ -25,7 +25,7 @@
 
 它不是单一的爬虫，也不是单一的发布器——**第一步是把账号、素材、内容和运营目标放进同一条工作流**：先搜索与采集，再进入内容库沉淀；随后通过 AI 完成标题、正文和标签改写，按需优化图片，最后经过发布校验进入立即发布、定时发布或自动运营任务。每一阶段都保留可追踪的任务状态与结果。
 
-<table width="100%">
+<table width="100%" style="width:100%; min-width:100%; table-layout:auto;">
 <thead><tr><th align="left">项目</th><th align="left">值</th><th align="left">说明</th></tr></thead>
 <tbody>
 <tr><td>产品名称</td><td>OmniSocial XHS 小红书自动运营平台</td><td>面向小红书运营的内容与账号工作台</td></tr>
@@ -54,7 +54,7 @@
 
 ## 能力一览
 
-<table width="100%">
+<table width="100%" style="width:100%; min-width:100%; table-layout:auto;">
 <thead><tr><th align="left">层面</th><th align="left">具体能力</th></tr></thead>
 <tbody>
 <tr><td>账号与登录</td><td>PC 端 / 创作者平台登录，多账号绑定，Cookie 加密，健康巡检</td></tr>
