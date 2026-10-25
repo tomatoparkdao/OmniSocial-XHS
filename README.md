@@ -15,6 +15,7 @@
 | 运行方式 | 本地开发、Docker |
 | 许可 | MIT，详见 [LICENSE](LICENSE) |
 | 开源仓库 | https://github.com/tomatoparkdao/OmniSocial-XHS |
+| 演示页面 | [OmniSocial-XHS](https://tomatoparkdao.github.io/OmniSocial-XHS/) |
 
 ## 一句话
 
