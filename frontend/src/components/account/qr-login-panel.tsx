@@ -68,7 +68,14 @@ export function QrLoginPanel({ accountType, onConfirmed }: QrLoginPanelProps) {
         if (polled.status === "scanned") {
           setStatusText("已扫码，请在手机端确认登录");
         } else if (polled.status === "expired") {
-          setStatusText("二维码已过期，请刷新");
+          setStatusText("二维码已过期，正在准备新的二维码");
+          // Keep the drawer usable after a stale QR session instead of
+          // leaving the user on a permanently expired login attempt.
+          window.setTimeout(() => {
+            if (!confirmedRef.current) {
+              void startSession();
+            }
+          }, 600);
         } else if (polled.status === "confirmed" && polled.account && !confirmedRef.current) {
           confirmedRef.current = true;
           setStatusText("账号绑定成功");
