@@ -313,7 +313,7 @@ export function XhsDiscoveryPage() {
                 {selImgUrls.length > 1 && (
                   <Space size={4} style={{ marginTop: 8, overflowX: "auto" }}>
                     {selImgUrls.map((url, i) => (
-                      <div key={url} onClick={() => setDetailMediaIndex(i)} style={{ width: 48, height: 48, borderRadius: 4, overflow: "hidden", cursor: "pointer", border: i === selMediaIdx ? "2px solid #1668dc" : "2px solid transparent", flexShrink: 0 }}>
+                      <div key={url} onClick={() => setDetailMediaIndex(i)} style={{ width: 48, height: 48, borderRadius: 4, overflow: "hidden", cursor: "pointer", border: i === selMediaIdx ? "2px solid #cbf90c" : "2px solid transparent", flexShrink: 0 }}>
                         <img src={url} alt="" referrerPolicy="no-referrer" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                       </div>
                     ))}
@@ -330,7 +330,7 @@ export function XhsDiscoveryPage() {
               <Descriptions.Item label="作品链接"><Typography.Link href={getPreviewNoteUrl(selectedNote)} target="_blank" rel="noreferrer" style={{ fontSize: 12, wordBreak: "break-all" }}>{getPreviewNoteUrl(selectedNote) || "-"}</Typography.Link></Descriptions.Item>
             </Descriptions>
 
-            {selectedNote.tags?.length ? <div style={{ marginBottom: 12 }}>{selectedNote.tags.map((t) => <Tag key={t} color="blue">#{t}</Tag>)}</div> : null}
+            {selectedNote.tags?.length ? <div style={{ marginBottom: 12 }}>{selectedNote.tags.map((t) => <Tag key={t} color="lime">#{t}</Tag>)}</div> : null}
 
             <div style={{ marginBottom: 16 }}>
               <Text strong>正文</Text>
