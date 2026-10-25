@@ -202,7 +202,7 @@ export function XhsAccountsPage() {
                     style={{
                       background: "#1a1a1a",
                       borderColor: isCreator ? "#303050" : "#303030",
-                      borderLeft: `3px solid ${isCreator ? "#722ed1" : "#1668dc"}`,
+                      borderLeft: `3px solid ${isCreator ? "#722ed1" : "#cbf90c"}`,
                     }}
                     styles={{ body: { padding: 20 } }}
                   >
