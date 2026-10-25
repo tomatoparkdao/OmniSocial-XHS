@@ -16,6 +16,19 @@ class XhsCreatorApiAdapter:
         auth = XHSCreatorAuth.from_cookie(self.cookies)
         return XHS_Creator_Apis(auth)
 
+    @staticmethod
+    def _publish_error(payload: dict[str, Any]) -> str:
+        """Keep the platform response code/message instead of hiding it."""
+        for key in ("msg", "message", "error", "err_msg"):
+            value = payload.get(key)
+            if value:
+                return str(value)
+        for key in ("code", "result", "status"):
+            value = payload.get(key)
+            if value not in (None, "", 0, "0"):
+                return f"Creator publish rejected ({key}={value})"
+        return f"Creator note publish failed: {payload}"
+
     def get_topic(self, keyword: str) -> Any:
         with direct_xhs_request_env():
             return self._api().get_topic(keyword=keyword)
@@ -157,16 +170,18 @@ class XhsCreatorApiAdapter:
             body,
             fingerprint_hex=load_creator_rap_fingerprint_hex(),
         )
-        response = api.http.post(
-            api.edith_url + post_api,
-            headers=headers,
-            data=body.encode("utf-8"),
-            cookies=cookies,
-            timeout=REQUEST_TIMEOUT,
-        )
-        payload = response.json()
-        if not payload.get("success"):
-            raise RuntimeError(
-                payload.get("msg") or payload.get("message") or "Creator note publish failed"
+        payload: dict[str, Any] = {}
+        for attempt in range(3):
+            response = api.http.post(
+                api.edith_url + post_api,
+                headers=headers,
+                data=body.encode("utf-8"),
+                cookies=cookies,
+                timeout=REQUEST_TIMEOUT,
             )
+            payload = response.json()
+            if payload.get("success") or payload.get("code") != -1:
+                break
+        if not payload.get("success"):
+            raise RuntimeError(self._publish_error(payload))
         return payload
