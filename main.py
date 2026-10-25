@@ -1,3 +1,5 @@
+# © OmniSocial XHS ｜ 开发者：Mochiball
+
 from __future__ import annotations
 
 import argparse
@@ -77,3 +79,5 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main(sys.argv[1:]))
+
+# © OmniSocial XHS ｜ 开发者：Mochiball
