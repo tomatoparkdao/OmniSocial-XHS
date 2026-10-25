@@ -104,7 +104,7 @@ const topContentColumns: ColumnsType<AnalyticsTopContent> = [
   },
 ];
 
-const metricIconColors = ["#1668dc", "#52c41a", "#faad14", "#eb2f96"];
+const metricIconColors = ["#cbf90c", "#52c41a", "#faad14", "#eb2f96"];
 
 export function XhsAnalyticsPage() {
   const [overview, setOverview] = useState<DashboardOverview>(fallbackOverview);
@@ -285,12 +285,12 @@ export function XhsAnalyticsPage() {
                 <Card
                   title={
                     <Space>
-                      <TagsOutlined style={{ color: "#1668dc" }} />
+                      <TagsOutlined style={{ color: "#cbf90c" }} />
                       <span>热点话题</span>
                     </Space>
                   }
                   extra={
-                    <Tag color="blue">{hotTopics.length} 个</Tag>
+                    <Tag color="lime">{hotTopics.length} 个</Tag>
                   }
                   style={{ background: "#1f1f1f", borderColor: "#303030", flex: 1 }}
                   styles={{ body: { padding: "8px 16px", maxHeight: 320, overflowY: "auto" } }}
@@ -315,7 +315,7 @@ export function XhsAnalyticsPage() {
                               <Progress
                                 percent={pct}
                                 showInfo={false}
-                                strokeColor="#1668dc"
+                                strokeColor="#cbf90c"
                                 trailColor="#303030"
                                 size="small"
                               />
@@ -349,7 +349,7 @@ export function XhsAnalyticsPage() {
                     <div style={{ display: "flex", flexWrap: "wrap", gap: 8, alignItems: "center" }}>
                       {commentInsights.top_terms.map((term, idx) => {
                         const fontSize = termSizes[Math.min(idx, termSizes.length - 1)];
-                        const colors = ["#1668dc", "#13c2c2", "#52c41a", "#faad14", "#eb2f96", "#722ed1"];
+                        const colors = ["#cbf90c", "#13c2c2", "#52c41a", "#faad14", "#eb2f96", "#722ed1"];
                         const color = colors[idx % colors.length];
                         return (
                           <Tag
