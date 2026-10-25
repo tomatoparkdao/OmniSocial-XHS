@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, HashRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import { AppShell } from "../components/layout/app-shell";
 import { ComingSoonPage } from "../components/platforms/coming-soon";
@@ -25,12 +25,11 @@ import { XhsVideoStudioPage } from "../pages/platforms/xhs/video-studio-page";
 import { XhsSectionPage } from "../pages/platforms/xhs/xhs-section-page";
 
 export function AppRouter() {
-  const basename = window.location.pathname.startsWith("/OmniSocial-XHS")
-    ? "/OmniSocial-XHS"
-    : undefined;
+  const isGitHubPages = window.location.pathname.startsWith("/OmniSocial-XHS");
+  const Router = isGitHubPages ? HashRouter : BrowserRouter;
 
   return (
-    <BrowserRouter basename={basename}>
+    <Router>
       <Routes>
         <Route path="/" element={<Navigate to="/platform-select" replace />} />
         <Route
@@ -83,6 +82,6 @@ export function AppRouter() {
           <Route path="/settings" element={<SettingsPage />} />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
