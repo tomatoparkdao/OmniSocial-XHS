@@ -23,7 +23,7 @@ const darkTokens = {
   colorBorder: "#303030",
   colorBorderSecondary: "#262626",
   borderRadius: 6,
-  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif',
+  fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif',
 };
 
 const lightTokens = {
@@ -35,7 +35,7 @@ const lightTokens = {
   colorBorder: "#e8e8e8",
   colorBorderSecondary: "#f0f0f0",
   borderRadius: 6,
-  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif',
+  fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif',
 };
 
 const darkComponents = {
