@@ -151,6 +151,10 @@ http.interceptors.request.use((config) => {
 http.interceptors.response.use(
   (response) => response,
   async (error) => {
+    // GitHub Pages 演示没有后端，演示会话下的业务接口失败不应打扰浏览体验。
+    if (isDemoSession()) {
+      return Promise.reject(error);
+    }
     const originalRequest = error.config as typeof error.config & { _authRetry?: boolean; _silent?: boolean };
     if (error.response?.status !== 401 || originalRequest?._authRetry || !getRefreshToken()) {
       if (!originalRequest?._silent && !isDemoSession()) {
@@ -223,6 +227,10 @@ export async function bootstrapAuth(): Promise<PlatformUser | null> {
 }
 
 export async function logout(): Promise<void> {
+  if (isDemoSession()) {
+    clearAuthTokens();
+    return;
+  }
   try {
     await http.post("/auth/logout");
   } finally {
