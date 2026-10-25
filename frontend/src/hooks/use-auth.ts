@@ -100,8 +100,11 @@ async function register(credentials: api.AuthCredentials): Promise<void> {
 }
 
 async function logout(): Promise<void> {
-  await api.logout();
-  emit({ status: "anonymous", user: null, error: null });
+  try {
+    await api.logout();
+  } finally {
+    emit({ status: "anonymous", user: null, error: null });
+  }
 }
 
 export function useAuth() {
