@@ -78,9 +78,19 @@ export function QrLoginPanel({ accountType, onConfirmed }: QrLoginPanelProps) {
       return;
     }
 
+    const sessionId = session.session_id;
+    const sessionVersion = requestVersionRef.current;
     const interval = window.setInterval(async () => {
       try {
-        const polled = await pollXhsLoginSession(session.session_id);
+        const polled = await pollXhsLoginSession(sessionId);
+        // An in-flight poll from the previous PC/Creator session must not
+        // overwrite the currently selected login type.
+        if (
+          sessionVersion !== requestVersionRef.current ||
+          accountTypeRef.current !== accountType
+        ) {
+          return;
+        }
         setSession((current) => ({
           ...polled,
           qr_image_data_url: polled.qr_image_data_url ?? current?.qr_image_data_url
