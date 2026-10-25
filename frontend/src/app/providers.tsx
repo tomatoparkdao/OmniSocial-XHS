@@ -16,6 +16,7 @@ export function useThemeMode() {
 
 const darkTokens = {
   colorPrimary: "#cbf90c",
+  colorTextLightSolid: "#141414",
   colorBgBase: "#141414",
   colorBgContainer: "#1f1f1f",
   colorBgElevated: "#262626",
@@ -27,6 +28,7 @@ const darkTokens = {
 
 const lightTokens = {
   colorPrimary: "#cbf90c",
+  colorTextLightSolid: "#141414",
   colorBgBase: "#ffffff",
   colorBgContainer: "#ffffff",
   colorBgElevated: "#ffffff",
