@@ -1,3 +1,5 @@
+// © OmniSocial XHS ｜ 开发者：Mochiball
+
 import React from "react";
 import ReactDOM from "react-dom/client";
 
@@ -12,3 +14,5 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     </AppProviders>
   </React.StrictMode>
 );
+
+// © OmniSocial XHS ｜ 开发者：Mochiball
