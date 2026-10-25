@@ -42,12 +42,20 @@ class XhsCreatorApiAdapter:
             return self._api().get_all_posted_notes()
 
     def upload_media(self, file_path: str, media_type: str) -> dict[str, Any]:
+        import time
+
         file_data = self._resolve_file_data(file_path)
         with direct_xhs_request_env():
-            success, message, payload = self._api().upload_media(file_data, media_type)
-        if not success:
-            raise RuntimeError(message or "Creator media upload failed")
-        return payload or {}
+            last_message = "Creator media upload failed"
+            attempts = 3 if media_type == "video" else 1
+            for attempt in range(attempts):
+                success, message, payload = self._api().upload_media(file_data, media_type)
+                if success and payload:
+                    return payload
+                last_message = message or last_message
+                if attempt + 1 < attempts:
+                    time.sleep(0.6)
+        raise RuntimeError(last_message)
 
     @staticmethod
     def _resolve_file_data(file_path: str) -> bytes:
