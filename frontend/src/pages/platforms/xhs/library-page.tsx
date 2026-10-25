@@ -344,7 +344,7 @@ export function XhsLibraryPage() {
     { title: "作者", dataIndex: "author_name", width: 120 },
     { title: "笔记 ID", dataIndex: "note_id", width: 140, ellipsis: true },
     { title: "保存时间", dataIndex: "created_at", width: 160, render: (v: string) => formatSavedTime(v) },
-    { title: "标签", key: "tags", width: 180, render: (_, n) => n.tags?.length ? <Space size={4} wrap>{n.tags.map((t) => <Tag key={t.id} color="blue">{t.name}</Tag>)}</Space> : <Text type="secondary">-</Text> },
+    { title: "标签", key: "tags", width: 180, render: (_, n) => n.tags?.length ? <Space size={4} wrap>{n.tags.map((t) => <Tag key={t.id} color="lime">{t.name}</Tag>)}</Space> : <Text type="secondary">-</Text> },
     { title: "操作", key: "actions", width: 80, render: (_, n) => <Button type="text" danger icon={<DeleteOutlined />} size="small" onClick={(e) => { e.stopPropagation(); void handleDeleteNote(n); }} /> },
   ];
 
@@ -437,7 +437,7 @@ export function XhsLibraryPage() {
                       })()}
                     </>
                   } />
-                  {note.tags?.length ? <div style={{ marginTop: 6 }}>{note.tags.map((t) => <Tag key={t.id} color="blue" style={{ fontSize: 11 }}>{t.name}</Tag>)}</div> : null}
+                  {note.tags?.length ? <div style={{ marginTop: 6 }}>{note.tags.map((t) => <Tag key={t.id} color="lime" style={{ fontSize: 11 }}>{t.name}</Tag>)}</div> : null}
                 </Card>
               </Col>
             );
@@ -461,7 +461,7 @@ export function XhsLibraryPage() {
             </Descriptions>
 
             {getNoteTags(selectedNote).length > 0 && (
-              <div style={{ marginBottom: 12 }}>{getNoteTags(selectedNote).map((t) => <Tag key={t} color="blue">#{t}</Tag>)}</div>
+              <div style={{ marginBottom: 12 }}>{getNoteTags(selectedNote).map((t) => <Tag key={t} color="lime">#{t}</Tag>)}</div>
             )}
 
             <Button type="link" icon={<LinkOutlined />} href={getNoteUrl(selectedNote)} target="_blank" rel="noreferrer" style={{ padding: 0, marginBottom: 16 }}>查看原文</Button>
