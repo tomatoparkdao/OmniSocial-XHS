@@ -20,6 +20,9 @@ export function QrLoginPanel({ accountType, onConfirmed }: QrLoginPanelProps) {
   const [error, setError] = useState<string | null>(null);
   const [syncCreator, setSyncCreator] = useState(false);
   const confirmedRef = useRef(false);
+  const requestVersionRef = useRef(0);
+  const accountTypeRef = useRef(accountType);
+  accountTypeRef.current = accountType;
 
   function errorMessage(error: unknown): string {
     if (axios.isAxiosError(error)) {
@@ -32,20 +35,37 @@ export function QrLoginPanel({ accountType, onConfirmed }: QrLoginPanelProps) {
   }
 
   async function startSession() {
+    const requestVersion = ++requestVersionRef.current;
+    const requestedAccountType = accountType;
     setIsLoading(true);
     setError(null);
     confirmedRef.current = false;
+    setSession(null);
     try {
       const nextSession =
-        accountType === "pc"
+        requestedAccountType === "pc"
           ? await createXhsPcQrLoginSession({ sync_creator: syncCreator })
           : await createXhsCreatorQrLoginSession();
+      // A slower response from the previous account type must never replace
+      // the QR code for the type currently selected in the drawer.
+      if (
+        requestVersion !== requestVersionRef.current ||
+        accountTypeRef.current !== requestedAccountType
+      ) {
+        return;
+      }
       setSession(nextSession);
-      setStatusText(accountType === "pc" ? "请使用小红书 App 扫描二维码" : "请使用小红书 App 扫描 Creator 二维码");
+      setStatusText(
+        requestedAccountType === "pc"
+          ? "请使用小红书 App 扫描 PC 二维码"
+          : "请使用小红书 App 扫描 Creator 二维码"
+      );
     } catch (caught) {
       setError(errorMessage(caught));
     } finally {
-      setIsLoading(false);
+      if (requestVersion === requestVersionRef.current) {
+        setIsLoading(false);
+      }
     }
   }
 
