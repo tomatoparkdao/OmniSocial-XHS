@@ -125,7 +125,7 @@ function SortableImageThumb({ asset, onEdit, onRemove, onView }: { asset: DraftA
         style={{
           position: "absolute", top: -6, left: -6, fontSize: 10,
           width: 18, height: 18, minWidth: 18, padding: 0,
-          background: "rgba(0,0,0,.6)", borderRadius: "50%", color: "#1668dc",
+          background: "rgba(0,0,0,.6)", borderRadius: "50%", color: "#cbf90c",
         }}
       />
       <Popconfirm title="移除此图片？" onConfirm={onRemove}>
@@ -600,7 +600,7 @@ export function XhsDraftsPage() {
                 background: "rgba(255,255,255,0.04)",
               }}
             >
-              <PlayCircleOutlined style={{ fontSize: 18, color: "#1668dc" }} />
+              <PlayCircleOutlined style={{ fontSize: 18, color: "#cbf90c" }} />
               <Text ellipsis style={{ flex: 1, fontSize: 13 }} title={asset.url || asset.local_path}>
                 {asset.local_path ? asset.local_path : filenameFromUrl(asset.url)}
               </Text>
@@ -612,7 +612,7 @@ export function XhsDraftsPage() {
               <Button
                 type="text" size="small" icon={<EditOutlined />}
                 onClick={() => { setOptimizeAssetId(asset.id); setOptimizeModalOpen(true); }}
-                style={{ color: "#1668dc" }}
+                style={{ color: "#cbf90c" }}
               />
               <Popconfirm title="移除此视频？" onConfirm={() => handleRemoveAsset(asset.id)}>
                 <Button type="text" danger size="small" icon={<DeleteOutlined />} />
@@ -681,7 +681,7 @@ export function XhsDraftsPage() {
                 <Text strong>草稿列表</Text>
                 <Badge
                   count={drafts.length}
-                  style={{ backgroundColor: "#1668dc" }}
+                  style={{ backgroundColor: "#cbf90c" }}
                 />
               </Space>
             }
@@ -720,9 +720,9 @@ export function XhsDraftsPage() {
                       style={{
                         cursor: "pointer",
                         padding: "10px 16px",
-                        background: isActive ? "#1668dc10" : "transparent",
+                        background: isActive ? "#cbf90c10" : "transparent",
                         borderLeft: isActive
-                          ? "2px solid #1668dc"
+                          ? "2px solid #cbf90c"
                           : "2px solid transparent",
                         transition: "all 0.15s",
                         margin: 0,
@@ -756,7 +756,7 @@ export function XhsDraftsPage() {
                           </Text>
                           {draft.source_note_id && (
                             <Tag
-                              color="blue"
+                              color="lime"
                               style={{ fontSize: 10, marginTop: 2 }}
                             >
                               来源笔记
@@ -890,7 +890,7 @@ export function XhsDraftsPage() {
                               <img src={asset.url || asset.local_path} style={{ width: 140, height: 140, objectFit: "cover", borderRadius: 6 }} referrerPolicy="no-referrer" />
                             ) : (
                               <div style={{ height: 140, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                                <Space direction="vertical" align="center"><PlayCircleOutlined style={{ fontSize: 32, color: "#1668dc" }} /><Text style={{ fontSize: 12 }}>视频</Text></Space>
+                                <Space direction="vertical" align="center"><PlayCircleOutlined style={{ fontSize: 32, color: "#cbf90c" }} /><Text style={{ fontSize: 12 }}>视频</Text></Space>
                               </div>
                             )}
                           </div>
@@ -1098,7 +1098,7 @@ export function XhsDraftsPage() {
                           <div key={img.file_name} onClick={() => toggleAssetUrl(img.url)}
                             style={{
                               width: 60, height: 60, borderRadius: 4, overflow: "hidden", cursor: "pointer",
-                              border: selectedAssetUrls.includes(img.url) ? "2px solid #1668dc" : "2px solid transparent",
+                              border: selectedAssetUrls.includes(img.url) ? "2px solid #cbf90c" : "2px solid transparent",
                             }}>
                             <img src={img.url} style={{ width: "100%", height: "100%", objectFit: "cover" }} referrerPolicy="no-referrer" />
                           </div>
@@ -1117,7 +1117,7 @@ export function XhsDraftsPage() {
                           <div key={asset.id} onClick={() => toggleAssetUrl(asset.file_path)}
                             style={{
                               width: 60, height: 60, borderRadius: 4, overflow: "hidden", cursor: "pointer",
-                              border: selectedAssetUrls.includes(asset.file_path) ? "2px solid #1668dc" : "2px solid transparent",
+                              border: selectedAssetUrls.includes(asset.file_path) ? "2px solid #cbf90c" : "2px solid transparent",
                             }}>
                             <img src={asset.file_path} style={{ width: "100%", height: "100%", objectFit: "cover" }} referrerPolicy="no-referrer" />
                           </div>
@@ -1161,7 +1161,7 @@ export function XhsDraftsPage() {
                           key={tag.id || tag.name}
                           closable
                           onClose={() => setDraftTags((prev) => prev.filter((t) => t.name !== tag.name))}
-                          color="blue"
+                          color="lime"
                         >
                           #{tag.name}
                         </Tag>
