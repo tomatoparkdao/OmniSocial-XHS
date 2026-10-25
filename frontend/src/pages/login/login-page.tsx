@@ -24,6 +24,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { z } from "zod";
 
 import { useAuth } from "../../hooks/use-auth";
+import { DEMO_PASSWORD, DEMO_USERNAME } from "../../lib/api";
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -313,6 +314,15 @@ export function LoginPage() {
                 ? "登录后选择小红书工作区开始运营。"
                 : "注册后会自动进入平台选择页。"}
             </Text>
+            {mode === "login" && (
+              <Alert
+                message="演示账号"
+                description={`账号：${DEMO_USERNAME}　密码：${DEMO_PASSWORD}`}
+                type="info"
+                showIcon
+                style={{ marginTop: 16 }}
+              />
+            )}
           </Card>
         </Col>
       </Row>
