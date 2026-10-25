@@ -83,6 +83,11 @@ const http = axios.create({
 });
 
 const REFRESH_TOKEN_KEY = "omni_social_xhs_refresh_token";
+export const DEMO_USERNAME = "demo";
+export const DEMO_PASSWORD = "Xhs2026";
+const DEMO_ACCESS_TOKEN = "omni-social-xhs-demo-access";
+const DEMO_REFRESH_TOKEN = "omni-social-xhs-demo-refresh";
+const DEMO_USER: PlatformUser = { id: 0, username: DEMO_USERNAME };
 let accessToken: string | null = null;
 
 export type AuthCredentials = {
@@ -100,6 +105,19 @@ export function hasRefreshToken(): boolean {
 
 function getRefreshToken(): string | null {
   return window.localStorage.getItem(REFRESH_TOKEN_KEY);
+}
+
+export function isDemoCredentials(credentials: AuthCredentials): boolean {
+  return credentials.username.trim() === DEMO_USERNAME && credentials.password === DEMO_PASSWORD;
+}
+
+export function loginDemo(): AuthPayload {
+  return persistAuthPayload({
+    access_token: DEMO_ACCESS_TOKEN,
+    refresh_token: DEMO_REFRESH_TOKEN,
+    token_type: "bearer",
+    user: DEMO_USER,
+  });
 }
 
 function setAccessToken(token: string | null): void {
@@ -167,6 +185,10 @@ export async function refreshAccessToken(): Promise<string> {
   if (!refreshToken) {
     throw new Error("Missing refresh token");
   }
+  if (refreshToken === DEMO_REFRESH_TOKEN) {
+    setAccessToken(DEMO_ACCESS_TOKEN);
+    return DEMO_ACCESS_TOKEN;
+  }
 
   const response = await http.post<{ access_token: string; token_type: "bearer" }>("/auth/refresh", {
     refresh_token: refreshToken
@@ -181,6 +203,10 @@ export async function fetchMe(): Promise<PlatformUser> {
 }
 
 export async function bootstrapAuth(): Promise<PlatformUser | null> {
+  if (getRefreshToken() === DEMO_REFRESH_TOKEN) {
+    setAccessToken(DEMO_ACCESS_TOKEN);
+    return DEMO_USER;
+  }
   if (!getAccessToken() && hasRefreshToken()) {
     await refreshAccessToken();
   }
