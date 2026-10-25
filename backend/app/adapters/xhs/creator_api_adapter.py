@@ -92,6 +92,12 @@ class XhsCreatorApiAdapter:
             if note_info.get("media_type") == "image" and note_info.get("image_file_infos"):
                 return self._post_uploaded_image_note(note_info)
 
+            # The Creator SDK's video pipeline expects raw bytes so it can
+            # extract a cover frame and metadata before uploading.  The API
+            # layer stores assets as paths/URLs, so resolve them here.
+            if note_info.get("media_type") == "video" and note_info.get("video"):
+                note_info = {**note_info, "video": self._resolve_file_data(note_info["video"])}
+
             success, message, payload = self._api().post_note(note_info)
         if not success:
             raise RuntimeError(message or "Creator note publish failed")
