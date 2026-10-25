@@ -40,7 +40,14 @@ const lightTokens = {
 
 const darkComponents = {
   Layout: { siderBg: "#141414", headerBg: "#141414", bodyBg: "#0a0a0a" },
-  Menu: { darkItemBg: "#141414", darkSubMenuItemBg: "#141414", darkItemSelectedBg: "#cbf90c20", darkItemSelectedColor: "#cbf90c" },
+  Menu: {
+    darkItemBg: "#141414",
+    darkSubMenuItemBg: "#141414",
+    darkItemColor: "rgba(255,255,255,.65)",
+    darkItemHoverColor: "#fff",
+    darkItemSelectedBg: "#cbf90c20",
+    darkItemSelectedColor: "#cbf90c",
+  },
   Card: { colorBgContainer: "#1a1a1a" },
   Table: { colorBgContainer: "#1a1a1a", headerBg: "#1f1f1f" },
 };
